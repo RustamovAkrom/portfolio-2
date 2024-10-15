@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %} Registration {% endblock %}
+{% block body_class_name %}register{% endblock %}
+{% block content %}
+ <!-- Page Title -->
+ <div class="page-title" data-aos="fade">
+    <div class="heading">
+      <div class="container">
+        <div class="row d-flex justify-content-center text-center">
+          <div class="col-lg-8">
+            <h1>Authorizated</h1>
+            <p class="mb-0">Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav class="breadcrumbs">
+      <div class="container">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li class="current">Login</li>
+        </ol>
+      </div>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact section">
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+      <form action="{{ url_for('auth.login') }}" method="post" class="form">
+        {{ form.hidden_tag() }}
+
+        <div class="row gy-4">
+
+          <div class="col-md-5">
+              {{ form.username.label }} <br>
+              {{ form.username(size=32) }} <br>
+              {% for error in form.username.errors %}
+                  <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+          </div>
+          <div class="col-md-5">
+              {{ form.email.label }} <br>
+              {{ form.email(size=32) }} <br>
+              {% for error in form.email.errors %}
+                  <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+          </div>
+          <div class="col-md-5">
+              {{ form.password.label }} <br>
+              {{ form.password(size=32) }} <br>
+              {% for error in form.password.errors %}
+                  <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+          </div>
+          <div class="col-md-5">
+              {{ form.confirm_password.label }} <br>
+              {{ form.confirm_password(size=32) }} <br>
+              {% for error in form.confirm_password.errors %}
+                  <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+          </div>
+
+          <div class="col-md-10 text-center">
+            <!-- <div class="loading">Loading</div> -->
+            <!-- <div class="error-message"></div>
+            <div class="sent-message">Your message has been sent. Thank you!</div> -->
+
+            <!-- <button type="submit">Send Message</button> -->
+             {{ form.submit() }}
+          </div>
+
+        </div>
+      </form><!-- End Contact Form -->
+
+    </div>
+
+  </section><!-- /Contact Section -->
+
+{% endblock %}

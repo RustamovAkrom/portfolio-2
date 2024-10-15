@@ -14,7 +14,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-dp.route("/login", methods=["GET", "POST"])
+@dp.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for("site.home"))
@@ -68,3 +68,9 @@ def logout():
     logout_user()
     flash(f"{current_user.username} user successfully loged out", "success")
     return redirect(url_for("home"))
+
+
+@dp.route('/admin')
+@login_required
+def admin():
+    return 'Admin panel: you can modify your site here.'

@@ -14,6 +14,7 @@ class User(BaseModel, UserMixin):
     username = db.Column(db.String(150), nullable=False)
     email = db.Column(db.String(120), nullable=False)
     password = db.Column(db.String(200), nullable=False)
+    is_superuser = db.Column(db.Boolean, nullable=False, default=False)
 
     def __repr__(self):
         return f"<{self.username}>"

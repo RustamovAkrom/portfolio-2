@@ -6,9 +6,17 @@ from app.models import User
 
 
 class LoginForm(FlaskForm):
-    username = StringField("Username", validators=[DataRequired(), Length(min=2, max=20)])
-    password = PasswordField("Password", validators=[DataRequired()])
-    submit = SubmitField("Login", validators=[DataRequired()])
+    username = StringField(
+        "Username", 
+        validators=[DataRequired(), Length(min=2, max=20)],
+        render_kw={"type": "text", "class": "form-control", "placeholder": "Your Username", "required": ""}
+        )
+    password = PasswordField(
+        "Password", 
+        validators=[DataRequired()],
+        render_kw={"type":"password", "class": "form-control", "placeholder": "Your password", "required": ""})
+    
+    submit = SubmitField("Login", validators=[DataRequired()], render_kw={"class": "btn btn-outline-success"})
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
@@ -17,12 +25,10 @@ class LoginForm(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
-    first_name = StringField("First name", validators=[DataRequired()])
-    last_name = StringField("Last name", validators=[DataRequired()])
     username = StringField("Username", validators=[DataRequired(), Length(min=2, max=150)])
     email = EmailField("Email", validators=[DataRequired(), ])
     password = PasswordField("Password", validators=[DataRequired(), ])
-    cofirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
+    confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
     submit = SubmitField("Register")
     
     def validate_usernaname(self, username):
