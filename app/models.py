@@ -5,7 +5,7 @@ from app import db
 class BaseModel(db.Model):
     __abstract__ = True
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
 
 class User(BaseModel, UserMixin):
@@ -22,7 +22,6 @@ class User(BaseModel, UserMixin):
 class About(BaseModel):
     __tablename__ = "abouts"
 
-    avatar = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(60), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
     birthday = db.Column(db.Date, nullable=False)
