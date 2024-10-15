@@ -25,12 +25,13 @@ def create_app(config_class: str = "app.config.config") -> Flask:
     login_manager.init_app(app)
     admin.init_app(app)
 
-    login_manager.login_view = "routes.login"
+    login_manager.login_view = "routes.auth.login"
 
 
     from app import models, routes
 
-    app.register_blueprint(routes.main)
+    app.register_blueprint(routes.auth_dp)
+    app.register_blueprint(routes.site_dp)
 
     if config.DEBUG:
         admin.add_view(ModelView(models.About, db.session))
