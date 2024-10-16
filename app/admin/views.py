@@ -10,8 +10,9 @@ from app import models
 
 
 class AuthAdminModel(ModelView):
-    def is_accessible(self):
-        return current_user.is_authenticated and current_user
+    pass
+    # def is_accessible(self):
+    #     return current_user.is_authenticated and current_user
     
 
 class AboutView(AuthAdminModel):

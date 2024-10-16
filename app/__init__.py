@@ -1,9 +1,9 @@
 from flask import Flask
-from flask_admin.contrib.sqla import ModelView
 
 from app.config import config
 from app.extensions import db, migrate, login_manager
 from app.admin.views import setup_admin
+from app.context_processor import setup_context_processor
 
 
 def create_app(config_class: str = "app.config.config"):
@@ -17,6 +17,9 @@ def create_app(config_class: str = "app.config.config"):
 
     # configure admin panel
     setup_admin(app)
+
+    # configure global functions
+    setup_context_processor(app)
 
     from app import routes
 
