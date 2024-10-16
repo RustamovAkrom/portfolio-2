@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask_login import UserMixin
 from app import db
 
@@ -6,6 +8,8 @@ class BaseModel(db.Model):
     __abstract__ = True
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 
 class User(BaseModel, UserMixin):
@@ -83,6 +87,16 @@ class Resume(BaseModel):
         return f"Resume - {self.id}"
 
 
+class Category(BaseModel):
+    __tablename__ = "categories"
+
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    projects = db.relationship('Project', backref='category', lazy=True)
+
+    def __repr__(self):
+        return f"<{self.name}>"
+    
+
 class Project(BaseModel):
     __tablename__ = "projects"
 
@@ -91,6 +105,7 @@ class Project(BaseModel):
     description = db.Column(db.String, nullable=True)
     created = db.Column(db.DateTime, nullable=False)
     url = db.Column(db.String(200), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
 
     def __repr__(self):
         return f"<{self.name}>"
