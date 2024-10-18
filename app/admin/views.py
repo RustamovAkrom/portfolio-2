@@ -42,3 +42,8 @@ class ProjectView(AuthAdminModel):
     form_extra_fields = {
         'img': FileUploadField('Image', base_path=config.UPLOAD_FOLDER)
     }
+    form_columns = ['name', 'img', 'description', 'created', 'url', 'category']
+
+
+class CategoryView(AuthAdminModel):
+    pass

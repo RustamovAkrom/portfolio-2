@@ -3,7 +3,7 @@ from app.config import config
 from app.extensions import db
 
 from app import models
-from .views import MyAdminIndexView, AuthAdminModel, ResumeView, AboutView, ProjectView
+from .views import MyAdminIndexView, AuthAdminModel, ResumeView, AboutView, ProjectView, CategoryView
 
 
 def setup_admin(app):
@@ -24,5 +24,5 @@ def setup_admin(app):
         admin.add_view(AuthAdminModel(models.Skill, session))
         admin.add_view(ResumeView(models.Resume, session))
         admin.add_view(ProjectView(models.Project, session))
-        admin.add_view(AuthAdminModel(models.Category, session))
+        admin.add_view(CategoryView(models.Category, session))
         admin.add_view(AuthAdminModel(models.Contact, session))

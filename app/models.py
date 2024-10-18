@@ -92,7 +92,6 @@ class Category(BaseModel):
     __tablename__ = "categories"
 
     name = db.Column(db.String(100), nullable=False, unique=True)
-    projects = db.relationship('Project', backref='category', lazy=True)
 
     def __repr__(self):
         return f"<{self.name}>"
@@ -107,6 +106,7 @@ class Project(BaseModel):
     created = db.Column(db.DateTime, nullable=False)
     url = db.Column(db.String(200), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+    category = db.relationship('Category', backref='projects')
 
     def __repr__(self):
         return f"<{self.name}>"

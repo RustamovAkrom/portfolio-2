@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, abort, send_from_directory
-from app.models import Resume, About
+from app.models import Resume, About, Skill, Service, Project, Category
 from app.config import config
 
 import markdown
@@ -20,8 +20,18 @@ def index():
 
 @dp.route('/about')
 def about():
-    get_about_in_db = About.query.first()
-    return render_template('site/about.html', about=get_about_in_db)
+    about_data = About.query.first()
+    skills_data = Skill.query.all()
+    skills_count = len(skills_data) // 2
+    left_skills = skills_data[:skills_count]
+    right_skills = skills_data[skills_count:]
+
+    context={
+        "about": about_data,
+        "left_skills": left_skills,
+        "right_skills": right_skills
+    }
+    return render_template('site/about.html', **context)
 
 
 @dp.route('/contact')
@@ -31,12 +41,19 @@ def contact():
 
 @dp.route('/portfolio')
 def portfolio():
-    return render_template('site/portfolio.html')
+    projects_data = Project.query.all()
+    categories_data = Category.query.all()
+    context = {
+        "projects": projects_data,
+        "categories": categories_data
+    }
+    return render_template('site/portfolio.html', **context)
 
 
 @dp.route('/portfolio/details/<int:portfolio_id>')
 def portfolio_details(portfolio_id):
-    return render_template('site/portfolio_detail.html')
+    project_data = Project.query.get(portfolio_id)
+    return render_template('site/portfolio_detail.html', project=project_data)
 
 
 @dp.route('/resume')
@@ -62,7 +79,14 @@ def download_resume(resume_id):
 
 @dp.route('/services')
 def services():
-    return render_template('site/services.html')
+    services_data = Service.query.all()
+    return render_template('site/services.html', services=services_data)
+
+
+@dp.route('/service-detail/<int:service_id>')
+def service_detail(service_id):
+    service_data = Service.query.get(id=service_id)
+    return render_template('site/service_detail.html', service=service_data)
 
 
 @dp.route('/starter')
