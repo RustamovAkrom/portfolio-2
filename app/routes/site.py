@@ -1,11 +1,15 @@
 from flask import Blueprint, render_template, abort, send_from_directory
-from app.models import Resume
+from app.models import Resume, About
 from app.config import config
 
 import markdown
 
 
 dp = Blueprint("site", __name__)
+
+@dp.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(config.UPLOAD_FOLDER, filename)
 
 
 @dp.route('/')
@@ -16,7 +20,8 @@ def index():
 
 @dp.route('/about')
 def about():
-    return render_template('site/about.html')
+    get_about_in_db = About.query.first()
+    return render_template('site/about.html', about=get_about_in_db)
 
 
 @dp.route('/contact')

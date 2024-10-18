@@ -4,12 +4,15 @@
 {% block content %}
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
-
-      <img src="{{ url_for('static', filename='assets/img/bg.jpg') }}" alt="" data-aos="fade-in">
+      <img src="{{ url_for('static', filename='assets/img/bg.gif') }}" alt="" data-aos="fade-in">
 
       <div class="container" data-aos="zoom-out" data-aos-delay="100">
+        {% if current_user.is_authenticated %}
+        <h2>Welcome Akrom</h2>
+        {% else %}
         <h2>Rustamov Akrom</h2>
-        <p>I'm <span class="typed" data-typed-items="Designer, Developer, Freelancer, Photographer">Photographer</span><span class="typed-cursor typed-cursor--blink"></span></p>
+        {% endif %}
+        <p>I'm <span class="typed" data-typed-items="Python developer, Web developer, Freelancer, Akrom">Photographer</span><span class="typed-cursor typed-cursor--blink"></span></p>
         <div class="social-links">
           {% for social in socials() %}
             <a href="{{ social.url }}"><i class="{{ social.style }}"></i></a>

@@ -1,53 +1,44 @@
-from flask_admin import Admin
+from flask import redirect, url_for, request
+from flask_admin import AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.form import FileUploadField
-
 from flask_login import current_user
 
 from app.config import config
-from app.extensions import db
-from app import models
 
 
 class AuthAdminModel(ModelView):
-    pass
-    # def is_accessible(self):
-    #     return current_user.is_authenticated and current_user
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.is_admin
     
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('auth.login', next=request.url))
 
+
+class MyAdminIndexView(AdminIndexView):
+    """
+    Admin home page
+    """
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.is_admin
+    
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('auth.login', next=request.url))
+
+    
 class AboutView(AuthAdminModel):
-    form_overrides = {
-        'avatar': FileUploadField
-    }
-    form_args = {
-        'avatar': {
-            'base_path': config.UPLOAD_FOLDER
-        }
+    form_extra_fields = {
+        'avatar': FileUploadField('Avatar', base_path=config.UPLOAD_FOLDER)
     }
 
 
 class ResumeView(AuthAdminModel):
-    form_overrides = {
-        'file': FileUploadField
-    }
-    form_args = {
-        'file': {
-            'base_path': config.UPLOAD_FOLDER
-        }
+    form_extra_fields = {
+        'file': FileUploadField('Resume', base_path=config.UPLOAD_FOLDER)
     }
 
 
-def setup_admin(app):
-    session = db.session
-
-    admin = Admin(app, name="Portfolio Admin", template_mode="bootstrap3")
-
-    if config.DEBUG:
-        admin.add_view(AboutView(models.About, session))
-
-        admin.add_view(AuthAdminModel(models.Social, session))
-        admin.add_view(AuthAdminModel(models.Service, session))
-        admin.add_view(AuthAdminModel(models.Skill, session))
-        admin.add_view(ResumeView(models.Resume, session))
-        admin.add_view(AuthAdminModel(models.Project, session))
-        admin.add_view(AuthAdminModel(models.Contact, session))
+class ProjectView(AuthAdminModel):
+    form_extra_fields = {
+        'img': FileUploadField('Image', base_path=config.UPLOAD_FOLDER)
+    }

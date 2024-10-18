@@ -1,8 +1,7 @@
 from flask import Flask
 
-from app.config import config
 from app.extensions import db, migrate, login_manager
-from app.admin.views import setup_admin
+from app.admin import setup_admin
 from app.context_processor import setup_context_processor
 
 
