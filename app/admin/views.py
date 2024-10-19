@@ -25,7 +25,7 @@ class MyAdminIndexView(AdminIndexView):
     def inaccessible_callback(self, name, **kwargs):
         return redirect(url_for('auth.login', next=request.url))
 
-    
+
 class AboutView(BaseAdminModelView):
     form_extra_fields = {
         'avatar': FileUploadField('Avatar', base_path=config.UPLOAD_FOLDER)
@@ -65,3 +65,5 @@ class ContactView(BaseAdminModelView):
     pass
 
 
+class UserView(BaseAdminModelView):
+    pass

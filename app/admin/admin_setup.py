@@ -12,7 +12,8 @@ from .views import (
     SocialView, 
     ServiceView, 
     SkillView, 
-    ContactView
+    ContactView,
+    UserView
 )
 
 
@@ -35,3 +36,4 @@ def setup_admin(app):
         admin.add_view(ProjectView(models.Project, session))
         admin.add_view(CategoryView(models.Category, session))
         admin.add_view(ContactView(models.Contact, session))
+        admin.add_view(UserView(models.User, session))
