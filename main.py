@@ -1,4 +1,4 @@
-from flask import Flask, json, request
+from flask import Flask, request
 import logging
 import git
 from app import create_app
@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 def init_deploy_configurations(app: Flask):
-    @app.route('/update_server')
+    @app.route('/update_server', methods=['POST'])
     def webhook():
         if request.method == 'POST':
             repo = git.Repo('mysite')
