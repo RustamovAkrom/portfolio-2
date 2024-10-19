@@ -1,6 +1,51 @@
+# Python
 __pycache__/
-env/
-Personals/
-migrations/
+*.py[cod]
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Flask specific
 instance/
+.webassets-cache
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+.env
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+
+# Other
+*.DS_Store
+*.tgz
+*.zip
+*.tar.gz
+
+# Coverage reports
+.coverage
+htmlcov/
+.coverage.*
+nosetests.xml
+test-results/
+
+# Pytest
+.cache/
+
+# Project
+migrations/
+Personals/
 word.py
