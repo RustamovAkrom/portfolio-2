@@ -7,11 +7,8 @@ from app import create_app
 logging.basicConfig(level=logging.DEBUG)
 
 
-app = create_app().run(
-    host="127.0.0.1",
-    port=8000,
-    debug=True
-)
+app = create_app()
+
 
 @app.route('/update_server', methods=['POST'])
 def webhook():
@@ -22,4 +19,3 @@ def webhook():
         return 'Updated PythonAnywhere successfully', 200
     else:
         return "Wrong event type", 400
-
