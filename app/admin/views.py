@@ -10,39 +10,40 @@ from app.config import config
 class BaseAdminModelView(ModelView):
     def is_accessible(self):
         return current_user.is_authenticated and current_user.is_admin
-    
+
     def inaccessible_callback(self, name, **kwargs):
-        return redirect(url_for('auth.login', next=request.url))
-    
+        return redirect(url_for("auth.login", next=request.url))
+
 
 class MyAdminIndexView(AdminIndexView):
     """
     Admin home page
     """
+
     def is_accessible(self):
         return current_user.is_authenticated and current_user.is_admin
-    
+
     def inaccessible_callback(self, name, **kwargs):
-        return redirect(url_for('auth.login', next=request.url))
+        return redirect(url_for("auth.login", next=request.url))
 
 
 class AboutView(BaseAdminModelView):
     form_extra_fields = {
-        'avatar': FileUploadField('Avatar', base_path=config.UPLOAD_FOLDER)
+        "avatar": FileUploadField("Avatar", base_path=config.UPLOAD_FOLDER)
     }
 
 
 class ResumeView(BaseAdminModelView):
     form_extra_fields = {
-        'file': FileUploadField('Resume', base_path=config.UPLOAD_FOLDER)
+        "file": FileUploadField("Resume", base_path=config.UPLOAD_FOLDER)
     }
 
 
 class ProjectView(BaseAdminModelView):
     form_extra_fields = {
-        'img': FileUploadField('Image', base_path=config.UPLOAD_FOLDER)
+        "img": FileUploadField("Image", base_path=config.UPLOAD_FOLDER)
     }
-    form_columns = ['name', 'img', 'description', 'created', 'url', 'category']
+    form_columns = ["name", "img", "description", "created", "url", "category"]
 
 
 class CategoryView(BaseAdminModelView):

@@ -10,7 +10,7 @@ from app.commands import create_admin
 def create_app(config_path: str = "app.config.config") -> Flask:
     app = Flask(__name__)
     app.config.from_object(config_path)
-    
+
     # Регистрация команды в CLI
     app.cli.add_command(create_admin)
 
@@ -31,5 +31,5 @@ def create_app(config_path: str = "app.config.config") -> Flask:
 
     app.register_blueprint(routes.auth_dp)
     app.register_blueprint(routes.site_dp)
-        
+
     return app

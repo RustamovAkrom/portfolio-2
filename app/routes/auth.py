@@ -18,7 +18,7 @@ def load_user(user_id):
 def login():
     if current_user.is_authenticated:
         return redirect(url_for("site.index"))
-    
+
     form = LoginForm()
 
     if form.validate_on_submit():
@@ -29,9 +29,9 @@ def login():
             next_page = request.args.get("next")
 
             return redirect(next_page) if next_page else redirect(url_for("site.index"))
-        
+
         flash(f"Login unsuccessfully. Pleace check username or password", "danger")
-    
+
     return render_template("auth/login.html", form=form)
 
 
@@ -39,18 +39,20 @@ def login():
 def register():
     if current_user.is_authenticated:
         return redirect(url_for("site.index"))
-    
+
     form = RegistrationForm()
-    
+
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data, method='sha256').decode("utf-8")
+        hashed_password = generate_password_hash(
+            form.password.data, method="sha256"
+        ).decode("utf-8")
 
         user = User(
             first_name=form.first_name.data,
             last_name=form.last_name.data,
             username=form.username.data,
             email=form.email.data,
-            password=hashed_password
+            password=hashed_password,
         )
         db.session.add(user)
         db.session.commit()
@@ -58,7 +60,7 @@ def register():
 
         flash("User successfully registered", "success")
         return redirect(url_for("auth.login"))
-    
+
     return render_template("auth/register.html", form=form)
 
 
@@ -69,7 +71,7 @@ def logout():
     return redirect(url_for("site.index"))
 
 
-@dp.route('/admin')
+@dp.route("/admin")
 @login_required
 def admin():
-    return 'Admin panel: you can modify your site here.'
+    return "Admin panel: you can modify your site here."

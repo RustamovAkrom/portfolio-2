@@ -8,6 +8,4 @@ def socials():
 def setup_context_processor(app):
     @app.context_processor
     def inject_global_functions():
-        return dict(
-            socials=socials
-        )
+        return dict(socials=socials)

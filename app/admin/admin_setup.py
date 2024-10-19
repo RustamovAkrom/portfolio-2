@@ -4,16 +4,16 @@ from app.extensions import db
 
 from app import models
 from .views import (
-    MyAdminIndexView, 
-    ResumeView, 
-    AboutView, 
-    ProjectView, 
-    CategoryView, 
-    SocialView, 
-    ServiceView, 
-    SkillView, 
+    MyAdminIndexView,
+    ResumeView,
+    AboutView,
+    ProjectView,
+    CategoryView,
+    SocialView,
+    ServiceView,
+    SkillView,
     ContactView,
-    UserView
+    UserView,
 )
 
 
@@ -23,7 +23,7 @@ def setup_admin(app):
     admin = Admin(
         app,
         index_view=MyAdminIndexView(),
-        name="Portfolio Admin", 
+        name="Portfolio Admin",
         template_mode="bootstrap3",
     )
 

@@ -8,10 +8,10 @@ app = create_app()
 # Создайте контекст приложения
 with app.app_context():
     # Создайте суперпользователя
-    username = 'Akromjon'
-    email = 'akromjonrustamov56@gmail.com'
-    password = '2007'
-    
+    username = "Akromjon"
+    email = "akromjonrustamov56@gmail.com"
+    password = "2007"
+
     # Проверьте, существует ли уже пользователь с таким именем
     user = User.query.filter_by(username=username).first()
     if user is None:
@@ -19,10 +19,10 @@ with app.app_context():
             username=username,
             email=email,
             password=generate_password_hash(password),
-            is_admin=True
+            is_admin=True,
         )
         db.session.add(user)
         db.session.commit()
-        print(f'Пользователь {username} успешно создан.')
+        print(f"Пользователь {username} успешно создан.")
     else:
-        print(f'Пользователь с именем {username} уже существует.')
+        print(f"Пользователь с именем {username} уже существует.")

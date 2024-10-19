@@ -9,7 +9,9 @@ class BaseModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    updated_at = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
 
 
 class User(BaseModel, UserMixin):
@@ -22,7 +24,7 @@ class User(BaseModel, UserMixin):
 
     def __repr__(self):
         return f"<{self.username}>"
-    
+
 
 class About(BaseModel):
     __tablename__ = "abouts"
@@ -43,7 +45,7 @@ class About(BaseModel):
 
     def __repr__(self):
         return f"<{self.first_name} {self.last_name}>"
-    
+
 
 class Social(BaseModel):
     __tablename__ = "socials"
@@ -54,7 +56,7 @@ class Social(BaseModel):
 
     def __repr__(self):
         return f"<{self.name}>"
-    
+
 
 class Service(BaseModel):
     __tablename__ = "services"
@@ -66,7 +68,7 @@ class Service(BaseModel):
 
     def __repr__(self):
         return f"<{self.name}>"
-    
+
 
 class Skill(BaseModel):
     __tablename__ = "skills"
@@ -80,7 +82,7 @@ class Skill(BaseModel):
 
 class Resume(BaseModel):
     __tablename__ = "resumes"
-    
+
     file = db.Column(db.String, nullable=False)
     content = db.Column(db.Text, nullable=False)
 
@@ -95,7 +97,7 @@ class Category(BaseModel):
 
     def __repr__(self):
         return f"<{self.name}>"
-    
+
 
 class Project(BaseModel):
     __tablename__ = "projects"
@@ -105,8 +107,8 @@ class Project(BaseModel):
     description = db.Column(db.String, nullable=True)
     created = db.Column(db.DateTime, nullable=False)
     url = db.Column(db.String(200), nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
-    category = db.relationship('Category', backref='projects')
+    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"), nullable=False)
+    category = db.relationship("Category", backref="projects")
 
     def __repr__(self):
         return f"<{self.name}>"
