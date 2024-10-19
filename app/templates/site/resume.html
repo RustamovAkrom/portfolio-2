@@ -28,10 +28,10 @@
       <section id="resume" class="resume section">
         <div class="container">
           <div class="row">
-            
-            {{ resume_html | safe }}
-            
-            <a href="{{ url_for('site.download_resume', resume_id=resume.id) }}" class="btn btn-outline-success">Download Resume</a>
+            {% if resume %}
+              {{ resume_html | safe }}
+              <a href="{{ url_for('site.download_resume', resume_id=resume.id) }}" class="btn btn-outline-success">Download Resume</a>
+            {% endif %}
           </div>
   
         </div>
