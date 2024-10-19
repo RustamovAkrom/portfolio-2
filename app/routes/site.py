@@ -66,8 +66,9 @@ def contact():
 
         except Exception as e:
             print(e)
-
-    return render_template("site/contact.html")
+    about_data = About.query.first()
+    print()
+    return render_template("site/contact.html", about=about_data)
 
 
 @dp.route("/portfolio")

@@ -17,7 +17,7 @@
         <nav class="breadcrumbs">
           <div class="container">
             <ol>
-              <li><a href="index.html">Home</a></li>
+              <li><a href="{{ url_for('site.index') }}">Home</a></li>
               <li class="current">Contact</li>
             </ol>
           </div>
@@ -36,7 +36,8 @@
                 <i class="icon bi bi-geo-alt flex-shrink-0"></i>
                 <div>
                   <h3>Address</h3>
-                  <p>A108 Adam Street, New York, NY 535022</p>
+                  {{ about }}
+                  <p>{{ about.address }}</p>
                 </div>
               </div>
             </div><!-- End Info Item -->
