@@ -1,25 +1,29 @@
 from flask import Flask
 
-from app.extensions import db, migrate, login_manager
-from app.admin import setup_admin
+from app.config import config
+from app.extensions import db, migrate, login_manager, mail
+from app.admin.admin_setup import setup_admin
 from app.context_processor import setup_context_processor
 
 
-def create_app(config_class: str = "app.config.config"):
+
+def create_app(config_path: str = "app.config.config") -> Flask:
     app = Flask(__name__)
-    app.config.from_object(config_class)
+    app.config.from_object(config_path)
 
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
     login_manager.login_view = "routes.auth.login"
+    mail.init_app(app)
 
-    # configure admin panel
+    # Конфигурация админ-панели
     setup_admin(app)
 
-    # configure global functions
+    # Настройка глобальных функций
     setup_context_processor(app)
 
+    # Регистрация Blueprint'ов
     from app import routes
 
     app.register_blueprint(routes.auth_dp)

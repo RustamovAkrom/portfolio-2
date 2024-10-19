@@ -1,5 +1,7 @@
-from flask import Blueprint, render_template, abort, send_from_directory
-from app.models import Resume, About, Skill, Service, Project, Category
+from flask import Blueprint, render_template, abort, send_from_directory, request
+from flask_mail import Message
+from app.models import Resume, About, Skill, Service, Project, Category, Contact
+from app.extensions import db, mail
 from app.config import config
 
 import markdown
@@ -34,8 +36,39 @@ def about():
     return render_template('site/about.html', **context)
 
 
-@dp.route('/contact')
+@dp.route('/contact', methods=['GET', 'POST'])
 def contact():
+    if request.method == 'POST':
+        try:
+            name = request.form.get('name', None)
+            email = request.form.get('email', None)
+            subject = request.form.get('subject', None)
+            message = request.form.get('message', None)
+
+            if (name and email and subject and message) is not None:
+                contact_data = Contact(
+                    name=name,
+                    email=email,
+                    subject=subject,
+                    message=message
+                )
+                db.session.add(contact_data)
+                db.session.commit()
+
+                msg = Message(
+                    f"{subject} from {name}",
+                    sender=email,
+                    recipients=[config.MAIL_USERNAME]
+                )
+                msg.body = message
+                mail.send(msg)
+
+            else:
+                print("Invalid fields.")
+
+        except Exception as e:
+            print(e)
+
     return render_template('site/contact.html')
 
 
@@ -85,7 +118,7 @@ def services():
 
 @dp.route('/service-detail/<int:service_id>')
 def service_detail(service_id):
-    service_data = Service.query.get(id=service_id)
+    service_data = Service.query.get(service_id)
     return render_template('site/service_detail.html', service=service_data)
 
 
