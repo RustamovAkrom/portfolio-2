@@ -1,10 +1,12 @@
-from flask import Flask, request
+from flask import request
 import logging
 import git
 from app import create_app
+from app.config import config
 
 
-logging.basicConfig(level=logging.DEBUG)
+if config.DEBUG:
+    logging.basicConfig(level=logging.DEBUG)
 
 
 app = create_app()
