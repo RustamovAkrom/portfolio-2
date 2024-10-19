@@ -1,57 +1,46 @@
 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-  <h3 class="resume-title">Sumary</h3>
-
+  <h3 class="resume-title">Summary</h3>
   <div class="resume-item pb-0">
-    <h4>Brandon Johnson</h4>
-    <p><em>Innovative and deadline-driven Graphic Designer with 3+ years of experience designing and developing user-centered digital/print marketing material from initial concept to final, polished deliverable.</em></p>
+    <h4>Akrom Rustamov</h4>
+    <p><em>Python Developer with over 2 years of experience in building scalable web applications using Django, Flask, and FastAPI. Actively creating projects that deepen knowledge in REST API development, database management (PostgreSQL, Redis), and server setup with NGINX.</em></p>
     <ul>
-      <li>Portland par 127,Orlando, FL</li>
-      <li>(123) 456-7891</li>
-      <li>alice.barkley@example.com</li>
+      <li>Tashkent, Uzbekistan</li>
+      <li>+998(95) 878-62-77</li>
+      <li>akromjonrustamov56@gmail.com</li>
+      <li><a href="https://t.me/RustamovAkrom2007">@RustamovAkrom2007</a><li>
     </ul>
   </div>
 
   <h3 class="resume-title">Education</h3>
   <div class="resume-item">
-    <h4>Master of Fine Arts &amp; Graphic Design</h4>
-    <h5>2015 - 2016</h5>
-    <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
-    <p>Qui deserunt veniam. Et sed aliquam labore tempore sed quisquam iusto autem sit. Ea vero voluptatum qui ut dignissimos deleniti nerada porti sand markend</p>
+    <h4>Web Development / RESTful API</h4>
+    <h5>Июнь 2023 - Февраль 2024</h5>
+    <p><em>Najot Tal'im, Ташкент, Узбекистан</em></p>
+    <p>Training in web development and the creation of RESTful APIs, mastering modern technologies for the development and application of frameworks.</p>
   </div>
-
-  <div class="resume-item">
-    <h4>Bachelor of Fine Arts &amp; Graphic Design</h4>
-    <h5>2010 - 2014</h5>
-    <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
-    <p>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</p>
-  </div>
-
 </div>
 
 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-  <h3 class="resume-title">Professional Experience</h3>
+  <h3 class="resume-title">Skills & Expertise</h3>
   <div class="resume-item">
-    <h4>Senior graphic design specialist</h4>
-    <h5>2019 - Present</h5>
-    <p><em>Experion, New York, NY </em></p>
+    <h4>Technical Skills</h4>
     <ul>
-      <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
-      <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>
-      <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
-      <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>
+      <li>Django, Flask, FastAPI</li>
+      <li>PostgreSQL, Redis</li>
+      <li>Docker, NGINX</li>
+      <li>REST API Development</li>
+      <li>HTML, CSS, JavaScript</li>
     </ul>
   </div>
 
   <div class="resume-item">
-    <h4>Graphic design specialist</h4>
-    <h5>2017 - 2018</h5>
-    <p><em>Stepping Stone Advertising, New York, NY</em></p>
+    <h4>Personal Qualities</h4>
     <ul>
-      <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>
-      <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
-      <li>Recommended and consulted with clients on the most appropriate graphic design</li>
-      <li>Created 4+ design presentations and proposals a month for clients and account managers</li>
+      <li>Strong problem-solving skills</li>
+      <li>Ability to learn quickly</li>
+      <li>Attention to detail</li>
+      <li>Team player with good communication skills</li>
+      <li>Passionate about technology and continuous learning</li>
     </ul>
   </div>
-
 </div>
