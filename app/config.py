@@ -7,7 +7,7 @@ class BaseConfig:
     load_dotenv()
 
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    SECRET_KEY = os.getenv("SECRET_KEY")
+    SECRET_KEY = str(os.getenv("SECRET_KEY")).encode("utf-8")
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = os.getenv("DEBUG", True)
