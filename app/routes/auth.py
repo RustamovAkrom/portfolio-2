@@ -20,18 +20,18 @@ def login():
         return redirect(url_for("site.index"))
 
     form = LoginForm()
-
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        print(user.username, user.password)
-        if user and check_password_hash(user.password, form.password.data):
-            login_user(user, remember=True)
-            next_page = request.args.get("next")
-
-            return redirect(next_page) if next_page else redirect(url_for("site.index"))
-
-        flash(f"Login unsuccessfully. Pleace check username or password", "danger")
-
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            user = User.query.filter_by(username=form.username.data).first()
+            print(user.username, user.password)
+            if user and check_password_hash(user.password, form.password.data):
+                login_user(user, remember=True)
+                next_page = request.args.get("next")
+                flash(f"Successfully sign in {user}", "success")
+                return redirect(next_page) if next_page else redirect(url_for("site.index"))
+        
+        flash(f"Invalid Login. Pleace check username or password", "danger")
+        
     return render_template("auth/login.html", form=form)
 
 
@@ -43,20 +43,15 @@ def register():
     form = RegistrationForm()
 
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(
-            form.password.data, method="sha256"
-        ).decode("utf-8")
-
         user = User(
             first_name=form.first_name.data,
             last_name=form.last_name.data,
             username=form.username.data,
             email=form.email.data,
-            password=hashed_password,
+            password=generate_password_hash(form.password.data),
         )
         db.session.add(user)
         db.session.commit()
-        db.session.refresh(user)
 
         flash("User successfully registered", "success")
         return redirect(url_for("auth.login"))

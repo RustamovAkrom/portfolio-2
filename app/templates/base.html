@@ -49,14 +49,14 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="/" class="active">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/resume">Resume</a></li>
-          <li><a href="/services">Services</a></li>
-          <li><a href="/portfolio">Portfolio</a></li>
+          <li><a href="{{ url_for('site.index') }}" class="active">Home</a></li>
+          <li><a href="{{ url_for('site.about') }}">About</a></li>
+          <li><a href="{{ url_for('site.resume') }}">Resume</a></li>
+          <li><a href="{{ url_for('site.services') }}">Services</a></li>
+          <li><a href="{{ url_for('site.portfolio') }}">Portfolio</a></li>
           {% if current_user.is_authenticated %}
           <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-          <li><a href="/admin">Admin</a></li>
+          <li><a href="/admin/">Admin</a></li>
           {% else %}
           <li class="dropdown"><a href="#"><span>Auth</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
@@ -74,7 +74,7 @@
             </ul>
           </li>
           {% endif %}
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="{{ url_for('site.contact') }}">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -82,11 +82,19 @@
     </div>
   </header>
 
+  
   <main class="main">
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
         {% for category, message in messages %}
-            <div class="{{ category }}">{{ message }}</div>
+            <section>
+              <div class="container">
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+            </section>
         {% endfor %}
     {% endif %}
     {% endwith %}

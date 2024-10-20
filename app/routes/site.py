@@ -39,6 +39,9 @@ def about():
 
 @dp.route("/contact", methods=["GET", "POST"])
 def contact():
+    about_data = About.query.first()
+    print(about_data)
+
     if request.method == "POST":
         try:
             name = request.form.get("name", None)
@@ -66,8 +69,7 @@ def contact():
 
         except Exception as e:
             print(e)
-    about_data = About.query.first()
-    print()
+            
     return render_template("site/contact.html", about=about_data)
 
 

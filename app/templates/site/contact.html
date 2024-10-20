@@ -36,7 +36,7 @@
                 <i class="icon bi bi-geo-alt flex-shrink-0"></i>
                 <div>
                   <h3>Address</h3>
-                  {{ about }}
+                  {{ about.address }}
                   <p>{{ about.address }}</p>
                 </div>
               </div>
@@ -47,7 +47,7 @@
                 <i class="icon bi bi-telephone flex-shrink-0"></i>
                 <div>
                   <h3>Call Me</h3>
-                  <p>+1 5589 55488 55</p>
+                  <p>{{ about.phone }}</p>
                 </div>
               </div>
             </div><!-- End Info Item -->
@@ -57,7 +57,7 @@
                 <i class="icon bi bi-envelope flex-shrink-0"></i>
                 <div>
                   <h3>Email Us</h3>
-                  <p>info@example.com</p>
+                  <p>{{ about.email }}</p>
                 </div>
               </div>
             </div><!-- End Info Item -->
@@ -68,11 +68,9 @@
                 <div>
                   <h3>Social Profiles</h3>
                   <div class="social-links">
-                    <a href="#"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#"><i class="bi bi-facebook"></i></a>
-                    <a href="#"><i class="bi bi-instagram"></i></a>
-                    <a href="#"><i class="bi bi-skype"></i></a>
-                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                    {% for social in socials() %}
+                      <a href="{{ social.url }}"><i class="{{ social.style }}"></i></a>
+                    {% endfor %}
                   </div>
                 </div>
               </div>
