@@ -27,6 +27,11 @@ class BaseConfig:
     CELERY_RESULT_SERIALIZER = "json"
     CELERY_TIMEZONE = "UTC"
 
+    # Caching pages
+    CACHE_TYPE = "SimpleCache"
+    CACHE_DEFAULT_TIMEOUT = 300
+    
+
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True

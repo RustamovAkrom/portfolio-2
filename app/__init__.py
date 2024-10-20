@@ -1,7 +1,7 @@
 from flask import Flask
 
 from app.config import config
-from app.extensions import db, migrate, login_manager, mail
+from app.extensions import db, migrate, login_manager, mail, cache
 from app.admin.admin_setup import setup_admin
 from app.context_processor import setup_context_processor
 from app.commands import create_admin
@@ -19,6 +19,7 @@ def create_app(config_path: str = "app.config.config") -> Flask:
     login_manager.init_app(app)
     login_manager.login_view = "routes.auth.login"
     mail.init_app(app)
+    cache.init_app(app)
 
     # Конфигурация админ-панели
     setup_admin(app)
