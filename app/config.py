@@ -23,10 +23,6 @@ class BaseConfig:
     MAIL_USE_SSL = False
     MAIL_DEFAULT_SENDER = "akromjonrustamov56@gmail.com"
 
-    # Caching pages
-    CACHE_TYPE = "simple"
-    CACHE_DEFAULT_TIMEOUT = 300
-
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
