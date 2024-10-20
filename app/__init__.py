@@ -6,6 +6,13 @@ from app.admin.admin_setup import setup_admin
 from app.context_processor import setup_context_processor
 from app.commands import create_admin
 
+def setup_cache_control(app: Flask):
+
+    @app.after_request
+    def add_header(response):
+        response.cache_control.no_store
+        return response
+    
 
 def create_app(config_path: str = "app.config.config") -> Flask:
     app = Flask(__name__)
@@ -20,6 +27,8 @@ def create_app(config_path: str = "app.config.config") -> Flask:
     login_manager.login_view = "routes.auth.login"
     mail.init_app(app)
     cache.init_app(app)
+
+    setup_cache_control(app)
 
     # Конфигурация админ-панели
     setup_admin(app)
