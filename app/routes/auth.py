@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.forms import LoginForm, RegistrationForm
 from app.models import User
-from app import login_manager, db, cache
+from app import login_manager, db
 
 
 dp = Blueprint("auth", __name__)
@@ -15,7 +15,6 @@ def load_user(user_id):
 
 
 @dp.route("/login", methods=["GET", "POST"])
-@cache.cached(timeout=60)
 def login():
     if current_user.is_authenticated:
         return redirect(url_for("site.index"))
@@ -37,7 +36,6 @@ def login():
 
 
 @dp.route("/register", methods=["GET", "POST"])
-@cache.cached(timeout=60)
 def register():
     if current_user.is_authenticated:
         return redirect(url_for("site.index"))

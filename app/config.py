@@ -24,7 +24,7 @@ class BaseConfig:
     MAIL_DEFAULT_SENDER = "akromjonrustamov56@gmail.com"
 
     # Caching pages
-    CACHE_TYPE = "SimpleCache"
+    CACHE_TYPE = "simple"
     CACHE_DEFAULT_TIMEOUT = 300
 
 

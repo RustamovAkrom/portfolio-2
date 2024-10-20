@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, abort, send_from_directory, request
 from flask_mail import Message
 from app.models import Resume, About, Skill, Service, Project, Category, Contact
-from app.extensions import db, mail, cache
+from app.extensions import db, mail
 from app.config import config
 
 import markdown
@@ -17,13 +17,11 @@ def uploaded_file(filename):
 
 @dp.route("/")
 @dp.route("/home")
-@cache.cached(timeout=60)
 def index():
     return render_template("site/index.html")
 
 
 @dp.route("/about")
-@cache.cached(timeout=60)
 def about():
     about_data = About.query.first()
     skills_data = Skill.query.all()
@@ -40,7 +38,6 @@ def about():
 
 
 @dp.route("/contact", methods=["GET", "POST"])
-@cache.cached(timeout=60)
 def contact():
     about_data = About.query.first()
     print(about_data)
@@ -77,7 +74,6 @@ def contact():
 
 
 @dp.route("/portfolio")
-@cache.cached(timeout=60)
 def portfolio():
     projects_data = Project.query.all()
     categories_data = Category.query.all()
@@ -86,14 +82,12 @@ def portfolio():
 
 
 @dp.route("/portfolio/details/<int:portfolio_id>")
-@cache.cached(timeout=60)
 def portfolio_details(portfolio_id):
     project_data = Project.query.get(portfolio_id)
     return render_template("site/portfolio_detail.html", project=project_data)
 
 
 @dp.route("/resume")
-@cache.cached(timeout=60)
 def resume():
     resume_ = Resume.query.first()
     resume_html = None
@@ -115,7 +109,6 @@ def download_resume(resume_id):
 
 
 @dp.route("/services")
-@cache.cached(timeout=60)
 def services():
     services_data = Service.query.all()
     return render_template("site/services.html", services=services_data)
