@@ -10,7 +10,7 @@ class BaseConfig:
     SECRET_KEY = os.getenv("SECRET_KEY")
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    DEBUG = os.getenv("DEBUG")
+    DEBUG = os.getenv("DEBUG", True)
     UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
     ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "pdf", "txt"}
     MAIL_SERVER = "smtp.gmail.com"
