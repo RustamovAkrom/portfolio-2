@@ -20,6 +20,10 @@ class MyAdminIndexView(AdminIndexView):
     Admin home page
     """
 
+    @expose('/')
+    def index(self):
+        return self.render('admin/index.html')
+    
     def is_accessible(self):
         return current_user.is_authenticated and current_user.is_admin
 
