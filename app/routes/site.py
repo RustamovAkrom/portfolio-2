@@ -23,7 +23,7 @@ def index():
     print(resume_data)
     context = {
         "template_name": "site/index.html",
-        "template_title": "Home",
+        "template_title": "Rustamov Akrom",
         "template_body_class_name": "index",
         "resume": resume_data
     }

@@ -64,9 +64,3 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for("site.index"))
-
-
-@dp.route("/admin")
-@login_required
-def admin():
-    return "Admin panel: you can modify your site here."
