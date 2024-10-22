@@ -9,10 +9,19 @@
     <h2>Rustamov Akrom</h2>
     {% endif %}
     <p>I'm <span class="typed" data-typed-items="Python developer, Web developer, Freelancer, Akrom">Photographer</span><span class="typed-cursor typed-cursor--blink"></span></p>
+    <div class="col-md-6 mt-4">
+      <small>Hi! I am Akrom Rustamov, a Python developer with over 2 years of experience in web development. My key skills include Django, Flask and FastAPI.</small>
+    </div>
     <div class="social-links">
       {% for social in socials() %}
-        <a href="{{ social.url }}"><i class="{{ social.style }}"></i></a>
+      <a href="{{ social.url }}"><i class="{{ social.style }}"></i></a>
       {% endfor %}
+    </div>
+    <div class="mt-4 mb-3">
+        <a  href="{{ url_for('site.portfolio') }}" class="btn btn-outline-success">My projects</a>
+      {% if resume.id %}
+        <a  href="{{ url_for('site.download_resume', resume_id=resume.id) }}" class="btn btn-outline-success">Download resume</a>
+      {% endif %}
     </div>
   </div>
 

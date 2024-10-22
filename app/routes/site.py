@@ -19,10 +19,13 @@ def uploaded_file(filename):
 @dp.route("/home")
 @htmx_route()
 def index():
+    resume_data = Resume.query.first()
+    print(resume_data)
     context = {
         "template_name": "site/index.html",
         "template_title": "Home",
-        "template_body_class_name": "index"
+        "template_body_class_name": "index",
+        "resume": resume_data
     }
     return context
 
