@@ -3,12 +3,12 @@ from flask_mail import Message
 from app.models import Resume, About, Skill, Service, Project, Category, Contact
 from app.extensions import db, mail
 from app.config import config
+from app.utils import htmx_route
 
 import markdown
 
 
 dp = Blueprint("site", __name__)
-
 
 @dp.route("/uploads/<filename>")
 def uploaded_file(filename):
@@ -17,11 +17,18 @@ def uploaded_file(filename):
 
 @dp.route("/")
 @dp.route("/home")
+@htmx_route()
 def index():
-    return render_template("site/index.html")
+    context = {
+        "template_name": "site/index.html",
+        "template_title": "Home",
+        "template_body_class_name": "index"
+    }
+    return context
 
 
 @dp.route("/about")
+@htmx_route()
 def about():
     about_data = About.query.first()
     skills_data = Skill.query.all()
@@ -30,17 +37,20 @@ def about():
     right_skills = skills_data[skills_count:]
 
     context = {
+        "template_name": "site/about.html",
+        "template_title": "About",
+        "template_body_class_name": "about",
         "about": about_data,
         "left_skills": left_skills,
         "right_skills": right_skills,
     }
-    return render_template("site/about.html", **context)
+    return context
 
 
 @dp.route("/contact", methods=["GET", "POST"])
+@htmx_route()
 def contact():
     about_data = About.query.first()
-    print(about_data)
 
     if request.method == "POST":
         try:
@@ -68,26 +78,48 @@ def contact():
                 print("Invalid fields.")
 
         except Exception as e:
-            print(e)
+            pass
+
+    context = {
+        "template_name": "site/contact.html",
+        "template_title": "Contacts",
+        "template_body_class_name": "contact",
+        "about": about_data
+    }
             
-    return render_template("site/contact.html", about=about_data)
+    return context
 
 
 @dp.route("/portfolio")
+@htmx_route()
 def portfolio():
     projects_data = Project.query.all()
     categories_data = Category.query.all()
-    context = {"projects": projects_data, "categories": categories_data}
-    return render_template("site/portfolio.html", **context)
+    context = {
+        "template_name": "site/portfolio.html",
+        "template_title": "Portfolio",
+        "template_body_class_name": "portfolio",
+        "projects": projects_data, 
+        "categories": categories_data
+    }
+    return context
 
 
 @dp.route("/portfolio/details/<int:portfolio_id>")
+@htmx_route()
 def portfolio_details(portfolio_id):
     project_data = Project.query.get(portfolio_id)
-    return render_template("site/portfolio_detail.html", project=project_data)
+    context = {
+        "template_name": "site/portfolio_detail.html",
+        "template_title": project_data.name,
+        "template_body_class_name": "portfolio-details",
+        "project": project_data
+    }
+    return context
 
 
 @dp.route("/resume")
+@htmx_route()
 def resume():
     resume_ = Resume.query.first()
     resume_html = None
@@ -95,7 +127,14 @@ def resume():
     if resume_ is not None:
         resume_html = markdown.markdown(resume_.content)
 
-    return render_template("site/resume.html", resume_html=resume_html, resume=resume_)
+    context = {
+        "template_name": "site/resume.html",
+        "template_title": "Resume",
+        "template_body_class_name": "resume",
+        "resume_html": resume_html,
+        "resume":resume_,
+    }
+    return context
 
 
 @dp.route("/resume/download/<int:resume_id>")
@@ -109,15 +148,29 @@ def download_resume(resume_id):
 
 
 @dp.route("/services")
+@htmx_route()
 def services():
     services_data = Service.query.all()
-    return render_template("site/services.html", services=services_data)
+
+    context = {
+        "template_name": "site/services.html",
+        "template_title": "Services",
+        "template_body_class_name": "contact",
+        "services": services_data
+    }
+    return context
 
 
 @dp.route("/service-detail/<int:service_id>")
+@htmx_route()
 def service_detail(service_id):
     service_data = Service.query.get(service_id)
-    return render_template("site/service_detail.html", service=service_data)
+    context = {
+        "template_name": "site/service_detail.html",
+        "template_title": service_data.name,
+        "template_body_class_name": "services-detail",      
+    }
+    return context
 
 
 @dp.route("/starter")

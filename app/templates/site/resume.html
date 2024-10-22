@@ -1,41 +1,35 @@
-{% extends 'base.html' %}
-{% block title %} Resume {% endblock %}
-{% block body_class_name %}resume{% endblock %}
-{% block content %}
-    <!-- Page Title -->
-    <div class="page-title" data-aos="fade">
-        <div class="heading">
-          <div class="container">
-            <div class="row d-flex justify-content-center text-center">
-              <div class="col-lg-8">
-                <h1>Resume</h1>
-                <!-- <p class="mb-0">Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p> -->
-              </div>
-            </div>
-          </div>
+<!-- Page Title -->
+<div class="page-title" data-aos="fade">
+  <div class="heading">
+    <div class="container">
+      <div class="row d-flex justify-content-center text-center">
+        <div class="col-lg-8">
+          <h1>Resume</h1>
+          <!-- <p class="mb-0">Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p> -->
         </div>
-        <nav class="breadcrumbs">
-          <div class="container">
-            <ol>
-              <li><a href="{{ url_for('site.index') }}">Home</a></li>
-              <li class="current">Resume</li>
-            </ol>
-          </div>
-        </nav>
-      </div><!-- End Page Title -->
-  
-      <!-- Resume Section -->
-      <section id="resume" class="resume section">
-        <div class="container">
-          <div class="row">
-            {% if resume %}
-              {{ resume_html | safe }}
-              <a href="{{ url_for('site.download_resume', resume_id=resume.id) }}" class="btn btn-outline-success">Download Resume</a>
-            {% endif %}
-          </div>
-  
-        </div>
-  
-      </section><!-- /Resume Section -->
-  
-{% endblock %}
+      </div>
+    </div>
+  </div>
+  <nav class="breadcrumbs">
+    <div class="container">
+      <ol>
+        <li><a href="{{ url_for('site.index') }}">Home</a></li>
+        <li class="current">Resume</li>
+      </ol>
+    </div>
+  </nav>
+</div><!-- End Page Title -->
+
+<!-- Resume Section -->
+<section id="resume" class="resume section">
+  <div class="container">
+    <div class="row">
+      {% if resume %}
+        {{ resume_html | safe }}
+        <a href="{{ url_for('site.download_resume', resume_id=resume.id) }}" class="btn btn-outline-success">Download Resume</a>
+      {% endif %}
+    </div>
+
+  </div>
+
+</section><!-- /Resume Section -->

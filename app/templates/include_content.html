@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ template_title }} {% endblock %}
+
+{% block body_class_name %}{{ template_body_class_name }}{% endblock %}
+
+{% block content %}
+    {% include template_htmx %}
+{% endblock %}
