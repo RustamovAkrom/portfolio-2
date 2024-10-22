@@ -3,6 +3,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.forms import LoginForm, RegistrationForm
 from app.models import User
+from app.utils import htmx_route
 from app import login_manager, db
 
 
@@ -15,6 +16,7 @@ def load_user(user_id):
 
 
 @dp.route("/login", methods=["GET", "POST"])
+@htmx_route()
 def login():
     if current_user.is_authenticated:
         return redirect(url_for("site.index"))
@@ -31,11 +33,18 @@ def login():
                 return redirect(next_page) if next_page else redirect(url_for("site.index"))
         
         flash(f"Invalid Login. Pleace check username or password", "danger")
-        
-    return render_template("auth/login.html", form=form)
+    
+    context = {
+        "template_name": "auth/login.html",
+        "template_title": "Authorization",
+        "template_body_class_name": "login",
+        "form": form
+    }
+    return context
 
 
 @dp.route("/register", methods=["GET", "POST"])
+@htmx_route()
 def register():
     if current_user.is_authenticated:
         return redirect(url_for("site.index"))
@@ -55,8 +64,13 @@ def register():
 
         flash("User successfully registered", "success")
         return redirect(url_for("auth.login"))
-
-    return render_template("auth/register.html", form=form)
+    context = {
+        "template_name": "auth/login.html",
+        "template_title": "Authorization",
+        "template_body_class_name": "login",
+        "form": form
+    }
+    return context
 
 
 @dp.route("/logout", methods=["GET", "POST"])
