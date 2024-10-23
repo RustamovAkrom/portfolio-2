@@ -19,7 +19,7 @@
     </div>
     <div class="mt-4 mb-3">
         <a  href="{{ url_for('site.portfolio') }}" class="btn btn-outline-success">My projects</a>
-      {% if resume.id %}
+      {% if resume %}
         <a  href="{{ url_for('site.download_resume', resume_id=resume.id) }}" class="btn btn-outline-success">Download resume</a>
       {% endif %}
     </div>

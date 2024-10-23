@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, request
+from flask import Blueprint, render_template, flash, redirect, url_for, request, session
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.forms import LoginForm, RegistrationForm
 from app.models import User
-from app.utils import htmx_route
+from app.utils import get_htmx_context
 from app import login_manager, db
 
 
@@ -16,61 +16,61 @@ def load_user(user_id):
 
 
 @dp.route("/login", methods=["GET", "POST"])
-@htmx_route()
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for("site.index"))
 
     form = LoginForm()
+
     if request.method == 'POST':
         if form.validate_on_submit():
             user = User.query.filter_by(username=form.username.data).first()
-            print(user.username, user.password)
+
             if user and check_password_hash(user.password, form.password.data):
                 login_user(user, remember=True)
+
                 next_page = request.args.get("next")
+                
                 flash(f"Successfully sign in {user}", "success")
+
                 return redirect(next_page) if next_page else redirect(url_for("site.index"))
         
         flash(f"Invalid Login. Pleace check username or password", "danger")
     
-    context = {
-        "template_name": "auth/login.html",
-        "template_title": "Authorization",
-        "template_body_class_name": "login",
-        "form": form
-    }
-    return context
+    template_name, context = get_htmx_context("auth/login.html")
+
+    context['form'] = form
+    context['template_title'] = "Authorization"
+    context['template_body_class_name'] = "login"
+
+    return render_template(template_name, **context)
 
 
-@dp.route("/register", methods=["GET", "POST"])
-@htmx_route()
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for("site.index"))
+# @dp.route("/register", methods=["GET", "POST"])
+# def register():
+#     if current_user.is_authenticated:
+#         return redirect(url_for("site.index"))
 
-    form = RegistrationForm()
+#     form = RegistrationForm()
 
-    if form.validate_on_submit():
-        user = User(
-            first_name=form.first_name.data,
-            last_name=form.last_name.data,
-            username=form.username.data,
-            email=form.email.data,
-            password=generate_password_hash(form.password.data),
-        )
-        db.session.add(user)
-        db.session.commit()
+#     if form.validate_on_submit():
+#         user = User(
+#             first_name=form.first_name.data,
+#             last_name=form.last_name.data,
+#             username=form.username.data,
+#             email=form.email.data,
+#             password=generate_password_hash(form.password.data),
+#         )
+#         db.session.add(user)
+#         db.session.commit()
 
-        flash("User successfully registered", "success")
-        return redirect(url_for("auth.login"))
-    context = {
-        "template_name": "auth/login.html",
-        "template_title": "Authorization",
-        "template_body_class_name": "login",
-        "form": form
-    }
-    return context
+#         flash("User successfully registered", "success")
+#         return redirect(url_for("auth.login"))
+#     context = {
+#         "template_name": "auth/login.html",
+#         "template_title": "Authorization",
+#         "template_body_class_name": "login",
+#         "form": form
+#     }
+#     return context
 
 
 @dp.route("/logout", methods=["GET", "POST"])

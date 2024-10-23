@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, abort, send_from_directory, request
+from flask import Blueprint, render_template, abort, send_from_directory, flash, request
 from flask_mail import Message
 from app.models import Resume, About, Skill, Service, Project, Category, Contact
 from app.extensions import db, mail
@@ -20,7 +20,7 @@ def uploaded_file(filename):
 @htmx_route()
 def index():
     resume_data = Resume.query.first()
-    print(resume_data)
+
     context = {
         "template_name": "site/index.html",
         "template_title": "Rustamov Akrom",
@@ -76,6 +76,7 @@ def contact():
                 )
                 msg.body = message
                 mail.send(msg)
+                flash("Successfully send message.", "success")
 
             else:
                 print("Invalid fields.")

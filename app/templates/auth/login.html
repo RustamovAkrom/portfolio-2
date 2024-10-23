@@ -75,7 +75,11 @@
   
           </div>
   
-          <form action="{{ url_for('auth.login') }}" method="post" class="form">
+          <form 
+          action="{{ url_for('auth.login') }}" 
+          method="post" 
+          class="form" 
+          >
             {{ form.hidden_tag() }}
 
             <div class="row gy-4">
@@ -83,22 +87,15 @@
               <div class="col-md-5">
                 {{ form.username.label }}
                 {{ form.username(size=32) }}
-                <!-- <input type="text" name="name" class="form-control" placeholder="Your Name" required=""> -->
               </div>
   
               <div class="col-md-5">
                 {{ form.password.label }}
                 {{ form.password(size=32) }}
-                <!-- <input type="email" class=""form-control"" name="email" placeholder="Your Email" required=""> -->
               </div>
   
   
               <div class="col-md-10 text-center">
-                <!-- <div class="loading">Loading</div> -->
-                <!-- <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div> -->
-  
-                <!-- <button type="submit">Send Message</button> -->
                  {{ form.submit() }}
               </div>
   
