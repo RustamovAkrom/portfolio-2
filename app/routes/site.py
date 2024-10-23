@@ -10,6 +10,7 @@ import markdown
 
 dp = Blueprint("site", __name__)
 
+
 @dp.route("/uploads/<filename>")
 def uploaded_file(filename):
     return send_from_directory(config.UPLOAD_FOLDER, filename)
@@ -25,7 +26,7 @@ def index():
         "template_name": "site/index.html",
         "template_title": "Rustamov Akrom",
         "template_body_class_name": "index",
-        "resume": resume_data
+        "resume": resume_data,
     }
     return context
 
@@ -81,16 +82,16 @@ def contact():
             else:
                 print("Invalid fields.")
 
-        except Exception as e:
+        except Exception:
             pass
 
     context = {
         "template_name": "site/contact.html",
         "template_title": "Contacts",
         "template_body_class_name": "contact",
-        "about": about_data
+        "about": about_data,
     }
-            
+
     return context
 
 
@@ -103,8 +104,8 @@ def portfolio():
         "template_name": "site/portfolio.html",
         "template_title": "Portfolio",
         "template_body_class_name": "portfolio",
-        "projects": projects_data, 
-        "categories": categories_data
+        "projects": projects_data,
+        "categories": categories_data,
     }
     return context
 
@@ -117,7 +118,7 @@ def portfolio_details(portfolio_id):
         "template_name": "site/portfolio_detail.html",
         "template_title": project_data.name,
         "template_body_class_name": "portfolio-details",
-        "project": project_data
+        "project": project_data,
     }
     return context
 
@@ -136,7 +137,7 @@ def resume():
         "template_title": "Resume",
         "template_body_class_name": "resume",
         "resume_html": resume_html,
-        "resume":resume_,
+        "resume": resume_,
     }
     return context
 
@@ -160,7 +161,7 @@ def services():
         "template_name": "site/services.html",
         "template_title": "Services",
         "template_body_class_name": "contact",
-        "services": services_data
+        "services": services_data,
     }
     return context
 
@@ -172,7 +173,7 @@ def service_detail(service_id):
     context = {
         "template_name": "site/service_detail.html",
         "template_title": service_data.name,
-        "template_body_class_name": "services-detail",      
+        "template_body_class_name": "services-detail",
     }
     return context
 

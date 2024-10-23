@@ -1,10 +1,10 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, request, session
-from flask_login import login_user, logout_user, login_required, current_user
-from werkzeug.security import generate_password_hash, check_password_hash
-from app.forms import LoginForm, RegistrationForm
+from flask import Blueprint, render_template, flash, redirect, url_for, request
+from flask_login import login_user, logout_user, login_required
+from werkzeug.security import check_password_hash
+from app.forms import LoginForm
 from app.models import User
 from app.utils import get_htmx_context
-from app import login_manager, db
+from app import login_manager
 
 
 dp = Blueprint("auth", __name__)
@@ -20,7 +20,7 @@ def login():
 
     form = LoginForm()
 
-    if request.method == 'POST':
+    if request.method == "POST":
         if form.validate_on_submit():
             user = User.query.filter_by(username=form.username.data).first()
 
@@ -28,18 +28,22 @@ def login():
                 login_user(user, remember=True)
 
                 next_page = request.args.get("next")
-                
+
                 flash(f"Successfully sign in {user}", "success")
 
-                return redirect(next_page) if next_page else redirect(url_for("site.index"))
-        
-        flash(f"Invalid Login. Pleace check username or password", "danger")
-    
+                return (
+                    redirect(next_page)
+                    if next_page
+                    else redirect(url_for("site.index"))
+                )
+
+        flash("Invalid Login. Pleace check username or password", "danger")
+
     template_name, context = get_htmx_context("auth/login.html")
 
-    context['form'] = form
-    context['template_title'] = "Authorization"
-    context['template_body_class_name'] = "login"
+    context["form"] = form
+    context["template_title"] = "Authorization"
+    context["template_body_class_name"] = "login"
 
     return render_template(template_name, **context)
 

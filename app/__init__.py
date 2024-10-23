@@ -1,12 +1,11 @@
 from flask import Flask
 
-from app.config import config
 from app.extensions import db, migrate, login_manager, mail
 from app.admin.admin_setup import setup_admin
 from app.context_processor import setup_context_processor
 from app.seo_optimization import setup_seo_optimization
 from app.commands import create_admin
-    
+
 
 def create_app(config_path: str = "app.config.config") -> Flask:
     app = Flask(__name__)
