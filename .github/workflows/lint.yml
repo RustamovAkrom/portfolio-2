@@ -1,9 +1,9 @@
-name: Deploy to PythonAnywhere
+name: Lint code
 
 on:
   push:
     branches:
-      - main  # Замените на вашу основную ветку
+      - main
 
 jobs:
   deploy:
@@ -23,9 +23,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Deploy to PythonAnywhere
-        env:
-          PA_API_TOKEN: ${{ secrets.PA_API_TOKEN }}
-        run: |
-          curl -X POST "https://www.pythonanywhere.com/api/v0/user/YOUR_USERNAME/webapps/YOUR_APP_NAME/reload/" \
-          -H "Authorization: Token $PA_API_TOKEN"
+      - name: Install flake8
+        run: pip install flake8
+
+      - name: Lint code
+        run: flake8 .
