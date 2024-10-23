@@ -29,3 +29,9 @@ Welcome to my portfolio! This project showcases my work as a Python developer wi
 - **Email**: SMTP (Gmail)
 - **Task Queue**: Celery (with Redis/RabbitMQ)
 - **Admin Panel**: Flask-Admin
+
+
+## Docker un
+```
+docker compose up --build
+```
