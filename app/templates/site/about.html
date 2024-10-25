@@ -128,7 +128,7 @@
           <div class="progress-bar-wrap">
             <div class="progress-bar" role="progressbar" aria-valuenow="{{ skill.procent }}" aria-valuemin="0" aria-valuemax="{{ skill.procent }}"></div>
           </div>
-        </div><!-- End Skills Item -->
+        </div>
         {% endfor %}
       </div>
 
@@ -137,9 +137,9 @@
         <div class="progress">
           <span class="skill"><span>{{ skill.name }}</span> <i class="val">{{ skill.procent }}%</i></span>
           <div class="progress-bar-wrap">
-            <div class="progress-bar" role="progressbar" aria-valuenow="{{ skill.procent }}" aria-valuemin="0" aria-valuemax="{{ skill.procent }}"></div>
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{ skill.procent }}" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-        </div><!-- End Skills Item -->
+        </div>
         {% endfor %}
       </div>
 
