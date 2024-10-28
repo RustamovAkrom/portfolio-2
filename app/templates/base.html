@@ -12,7 +12,7 @@
   <meta name="author" content="Akrom Rustamov">
 
   <!-- Open graph -->
-  <meta property="og:title" content="Akrom Rustamov - Python Developer">
+  <meta property="og:title" content="Akrom Rustamov - Python Developer Portfolio">
   <meta property="og:description" content="Take a look at my projects and contact me for cooperation.">
   <meta property="og:image" content="{{ url_for('static', filename='asseets/img/portfolio-thumbnail.png') }}">
   <meta property="og:url" content="https://akromjonrustamov.pythonanywhere.com">
@@ -35,6 +35,8 @@
   <!-- Main CSS File -->
   <link href="{{ url_for('static', filename='assets/css/main.css') }}" rel="stylesheet">
 
+  {% block style %}
+  {% endblock %}
   <!-- =======================================================
   * Template Name: Personal
   * Template URL: https://bootstrapmade.com/personal-free-resume-bootstrap-template/

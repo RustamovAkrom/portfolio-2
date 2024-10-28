@@ -21,12 +21,13 @@ def uploaded_file(filename):
 @htmx_route()
 def index():
     resume_data = Resume.query.first()
-
+    about_avatar_url = About.query.first()
     context = {
         "template_name": "site/index.html",
-        "template_title": "Rustamov Akrom",
+        # "template_title": "Rustamov Akrom",
         "template_body_class_name": "index",
         "resume": resume_data,
+        "about_avatar_url": about_avatar_url.avatar
     }
     return context
 

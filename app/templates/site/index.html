@@ -1,27 +1,61 @@
+{% block style %}
+<style>
+  .avatar-wrapper {
+  display: flex;
+  justify-content: flex-end; /* Выравнивание аватара вправо */
+  align-items: center; /* Вертикальное выравнивание по центру */
+}
+
+.avatar-wrapper img {
+  width: 200px; /* Ширина аватара, при необходимости можно изменить */
+  height: 200px; /* Высота аватара, при необходимости можно изменить */
+  object-fit: cover; /* Обрезка изображения по форме круга */
+  border: 5px solid seagreen; /* Белая рамка вокруг аватара (при желании) */
+  margin-left: 70%;
+}
+</style>
+{% endblock %}
+
 <!-- Hero Section -->
 <section id="hero" class="hero section dark-background">
-  <img src="{{ url_for('static', filename='assets/img/index-bg.jpg') }}" alt="" data-aos="fade-in">
-  <div class="container" data-aos="zoom-out" data-aos-delay="100">
-    {% if current_user.is_authenticated %}
-    <h2>Welcome Akrom</h2>
-    {% else %}
-    <h2>Rustamov Akrom &</h2>
-    {% endif %}
-    <p>I'm <span class="typed" data-typed-items="Python developer, Web developer, Freelancer, Akrom">Photographer</span><span class="typed-cursor typed-cursor--blink"></span></p>
-    <div class="col-md-6 mt-4">
-      <small>Hi! I am Akrom Rustamov, a Python developer with over 2 years of experience in web development. My key skills include Django, Flask and FastAPI.</small>
-    </div>
-    <div class="social-links">
-      {% for social in socials() %}
-      <a href="{{ social.url }}"><i class="{{ social.style }}"></i></a>
-      {% endfor %}
-    </div>
-    <div class="mt-4 mb-3">
-        <a  href="{{ url_for('site.portfolio') }}" class="btn btn-outline-success">My projects</a>
-      {% if resume %}
-        <a  href="{{ url_for('site.download_resume', resume_id=resume.id) }}" class="btn btn-outline-success">Download resume</a>
+  <img src="{{ url_for('static', filename='assets/img/index-bg.jpg') }}" alt="Background Image" data-aos="fade-in" class="img-fluid">
+  
+  <div class="container d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
+    <div class="col-md-6">
+      {% if current_user.is_authenticated %}
+        <h2>Welcome Akrom</h2>
+      {% else %}
+        <h2>Rustamov Akrom</h2>
       {% endif %}
+      
+      <p>
+        I'm <span class="typed" data-typed-items="Python developer, Web developer, Freelancer, Akrom">Photographer</span>
+        <span class="typed-cursor typed-cursor--blink"></span>
+      </p>
+      
+      <small>Hi! I am Akrom Rustamov, a Python developer with over 2 years of experience in web development. My key skills include Django, Flask, and FastAPI.</small>
+
+      <div class="social-links mt-4">
+        {% for social in socials() %}
+          <a href="{{ social.url }}" class="social-icon" target="_blank" rel="noopener noreferrer">
+            <i class="{{ social.style }}"></i>
+          </a>
+        {% endfor %}
+      </div>
+
+      <div class="mt-4 mb-3">
+        <a href="{{ url_for('site.portfolio') }}" class="btn btn-outline-success">My projects</a>
+        {% if resume %}
+          <a href="{{ url_for('site.download_resume', resume_id=resume.id) }}" class="btn btn-outline-success">Download resume</a>
+        {% endif %}
+      </div>
+    </div>
+    
+    <!-- Avatar -->
+    <div class="col-lg-4 ml-auto">
+      <div class="avatar-wrapper">
+        <img src="{{ url_for('site.uploaded_file', filename=about_avatar_url) }}" class="img-fluid rounded-circle" alt="Akrom Rustamov - Python Developer">
+      </div>
     </div>
   </div>
-
 </section><!-- /Hero Section -->
