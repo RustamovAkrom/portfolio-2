@@ -1,3 +1,5 @@
+import random
+
 from flask import Blueprint, render_template, abort, send_from_directory, flash, request
 from flask_mail import Message
 from app.models import Resume, About, Skill, Service, Project, Category, Contact
@@ -27,7 +29,8 @@ def index():
         # "template_title": "Rustamov Akrom",
         "template_body_class_name": "index",
         "resume": resume_data,
-        "about_avatar_url": about_avatar_url.avatar
+        "about_avatar_url": about_avatar_url.avatar,
+        "baground_image": f"{random.randint(1, 3)}.jpg"
     }
     return context
 
