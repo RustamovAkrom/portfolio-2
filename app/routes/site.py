@@ -84,6 +84,7 @@ def contact():
                 flash("Successfully send message.", "success")
 
             else:
+                flash("Invalid sending e-mail", "warning")
                 print("Invalid fields.")
 
         except Exception:
