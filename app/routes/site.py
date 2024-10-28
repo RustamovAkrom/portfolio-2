@@ -87,8 +87,9 @@ def contact():
                 flash("Invalid sending e-mail", "warning")
                 print("Invalid fields.")
 
-        except Exception:
-            pass
+        except Exception as e:
+            flash("Failed to send message. Please try again later.", "danger")
+            print("Error", e)
 
     context = {
         "template_name": "site/contact.html",

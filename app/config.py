@@ -14,10 +14,10 @@ class BaseConfig:
     DEBUG = os.getenv("DEBUG", True)
     UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
     ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "pdf", "txt"}
-    MAIL_SERVER = "smtp.gmail.com"
-    MAIL_PORT = 587  # обычно это 587 для TLS или 465 для SSL
 
     # configure email to optimzate Gmail
+    MAIL_SERVER = "smtp.gmail.com"
+    MAIL_PORT = 587  # обычно это 587 для TLS или 465 для SSL
     MAIL_USERNAME = os.getenv("EMAIL_USERNAME")
     MAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
     MAIL_USE_TLS = True
