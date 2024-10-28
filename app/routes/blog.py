@@ -1,6 +1,4 @@
-from flask import Blueprint, render_template
+# from flask import Blueprint, render_template
 
 
-dp = Blueprint("blog", __name__)
-
-
+# dp = Blueprint("blog", __name__)
