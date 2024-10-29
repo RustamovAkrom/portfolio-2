@@ -37,12 +37,11 @@ def uplod_file():
 @htmx_route()
 def index():
     resume_data = Resume.query.first()
-    about_avatar_url = About.query.first()
+    about_data = About.query.first()
 
-    if about_avatar_url:
-        about_avatar_url = about_avatar_url
-    else: 
-        about_avatar_url = None
+    about_avatar_url = None
+    if about_data:
+        about_avatar_url = about_data.acatar
 
     context = {
         "template_name": "site/index.html",
