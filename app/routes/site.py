@@ -41,7 +41,7 @@ def index():
 
     about_avatar_url = None
     if about_data:
-        about_avatar_url = about_data.acatar
+        about_avatar_url = about_data.avatar
 
     context = {
         "template_name": "site/index.html",
