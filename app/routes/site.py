@@ -1,6 +1,7 @@
 import random
+import os
 
-from flask import Blueprint, render_template, abort, send_from_directory, flash, request
+from flask import Blueprint, render_template, abort, send_from_directory, flash, url_for, redirect, request
 from flask_mail import Message
 from app.models import Resume, About, Skill, Service, Project, Category, Contact
 from app.extensions import db, mail
@@ -18,18 +19,37 @@ def uploaded_file(filename):
     return send_from_directory(config.UPLOAD_FOLDER, filename)
 
 
+@dp.route('/upload', methods=['POST'])
+def uplod_file():
+    if 'file' not in request.files:
+        return "No File part", 400
+    file = request.files['file']
+    if file.filename == '':
+        return "No selected file", 400
+    file.save(os.path.join(config.UPLOAD_FOLDER, file.filename))
+
+    file_url = url_for('site.uploaded_file', filename=file.filename)
+    return redirect(file_url)
+
+
 @dp.route("/")
 @dp.route("/home")
 @htmx_route()
 def index():
     resume_data = Resume.query.first()
     about_avatar_url = About.query.first()
+
+    if about_avatar_url:
+        about_avatar_url = about_avatar_url
+    else: 
+        about_avatar_url = None
+
     context = {
         "template_name": "site/index.html",
         # "template_title": "Rustamov Akrom",
         "template_body_class_name": "index",
         "resume": resume_data,
-        "about_avatar_url": about_avatar_url.avatar,
+        "about_avatar_url": about_avatar_url,
         "baground_image": f"{random.randint(1, 3)}.jpg",
     }
     return context
@@ -112,19 +132,6 @@ def portfolio():
         "template_body_class_name": "portfolio",
         "projects": projects_data,
         "categories": categories_data,
-    }
-    return context
-
-
-@dp.route("/portfolio/details/<int:portfolio_id>")
-@htmx_route()
-def portfolio_details(portfolio_id):
-    project_data = Project.query.get(portfolio_id)
-    context = {
-        "template_name": "site/portfolio_detail.html",
-        "template_title": project_data.name,
-        "template_body_class_name": "portfolio-details",
-        "project": project_data,
     }
     return context
 

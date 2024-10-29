@@ -45,7 +45,7 @@
                     <h4>{{ project.name }}</h4>
                     <p>{{ project.description }}</p>
                     <a href="{{ url_for('site.uploaded_file', filename=project.img) }}" title="{{ project.name }}" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="{{ url_for('site.portfolio_details', portfolio_id=project.id) }}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                    <a href="{{ project.url }}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                   </div>
                 </div>
               </div><!-- End Portfolio Item -->

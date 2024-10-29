@@ -54,7 +54,9 @@
     <!-- Avatar -->
     <div class="col-lg-4 ml-auto">
       <div class="avatar-wrapper">
+        {% if about_avatar_url %}
         <img src="{{ url_for('site.uploaded_file', filename=about_avatar_url) }}" class="img-fluid rounded-circle" alt="Akrom Rustamov - Python Developer">
+        {% endif %}
       </div>
     </div>
   </div>
