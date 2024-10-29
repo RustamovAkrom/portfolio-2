@@ -4,9 +4,6 @@ from flask_admin.contrib.sqla import ModelView
 from flask_admin.form import FileUploadField, SecureForm
 from flask_login import current_user
 
-from wtforms import StringField
-from wtforms.validators import DataRequired
-
 from app.config import config
 
 
@@ -17,15 +14,15 @@ class BaseAdminModelView(ModelView):
     can_delete = True
 
     column_display_pk = True
-    column_exclude_list = ['created_at', 'updated_at']
-    form_excluded_columns = ['created_at', 'updated_at']
+    column_exclude_list = ["created_at", "updated_at"]
+    form_excluded_columns = ["created_at", "updated_at"]
 
     def __init__(self, model, session, **kwargs):
         super().__init__(model, session, **kwargs)
 
     def on_model_change(self, form, model, is_created):
         return super().on_model_change(form, model, is_created)
-    
+
     def is_accessible(self):
         return current_user.is_authenticated and current_user.is_admin
 
@@ -66,15 +63,11 @@ class ProjectView(BaseAdminModelView):
         "img": FileUploadField("Image", base_path=config.UPLOAD_FOLDER)
     }
     form_columns = ["name", "img", "description", "created", "url", "category"]
-    form_ajax_refs = {
-        "category": {
-            "fields": ['name'],
-            'page_size': 10
-        }
-    }
+    form_ajax_refs = {"category": {"fields": ["name"], "page_size": 10}}
+
 
 class CategoryView(BaseAdminModelView):
-    form_columns = ['name']
+    form_columns = ["name"]
 
 
 class SocialView(BaseAdminModelView):
@@ -95,5 +88,3 @@ class ContactView(BaseAdminModelView):
 
 class UserView(BaseAdminModelView):
     pass
-
-

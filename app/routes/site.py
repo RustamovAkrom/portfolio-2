@@ -1,7 +1,16 @@
 import random
 import os
 
-from flask import Blueprint, render_template, abort, send_from_directory, flash, url_for, redirect, request
+from flask import (
+    Blueprint,
+    render_template,
+    abort,
+    send_from_directory,
+    flash,
+    url_for,
+    redirect,
+    request,
+)
 from flask_mail import Message
 from app.models import Resume, About, Skill, Service, Project, Category, Contact
 from app.extensions import db, mail
@@ -19,16 +28,16 @@ def uploaded_file(filename):
     return send_from_directory(config.UPLOAD_FOLDER, filename)
 
 
-@dp.route('/upload', methods=['POST'])
+@dp.route("/upload", methods=["POST"])
 def uplod_file():
-    if 'file' not in request.files:
+    if "file" not in request.files:
         return "No File part", 400
-    file = request.files['file']
-    if file.filename == '':
+    file = request.files["file"]
+    if file.filename == "":
         return "No selected file", 400
     file.save(os.path.join(config.UPLOAD_FOLDER, file.filename))
 
-    file_url = url_for('site.uploaded_file', filename=file.filename)
+    file_url = url_for("site.uploaded_file", filename=file.filename)
     return redirect(file_url)
 
 
