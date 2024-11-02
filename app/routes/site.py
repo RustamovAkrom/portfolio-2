@@ -58,7 +58,7 @@ def index():
         "template_body_class_name": "index",
         "resume": resume_data,
         "about_avatar_url": about_avatar_url,
-        "baground_image": f"{random.randint(1, 3)}.jpg",
+        "baground_image": "1.jpg",
     }
     return context
 
