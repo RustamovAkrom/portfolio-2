@@ -54,6 +54,11 @@
             >Portfolio</a>
           </li>
 
+          <li><a 
+            href="https://akromjonblog.pythonanywhere.com/"
+            >Blog</a>
+          </li>
+
           {% if current_user.is_authenticated %}
           <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
           <li><a href="/admin/">Admin</a></li>
